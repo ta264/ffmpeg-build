@@ -1,34 +1,24 @@
 #!/usr/bin/env bash
 
-FFMPEG_VERSION=3.2.4
+FFMPEG_VERSION=3.4.5
 FFMPEG_TARBALL=ffmpeg-$FFMPEG_VERSION.tar.bz2
 FFMPEG_TARBALL_URL=http://ffmpeg.org/releases/$FFMPEG_TARBALL
 
 FFMPEG_CONFIGURE_FLAGS=(
-    --disable-shared
-    --enable-static
-
+    --enable-shared
+    
     --disable-doc
     --disable-debug
     --disable-avdevice
-    --disable-swscale
     --enable-rdft
     --enable-ffmpeg
     --disable-ffplay
     --disable-ffserver
     --disable-network
-    --disable-muxers
-    --disable-demuxers
-    --disable-zlib
-    --disable-bzlib
     --disable-iconv
     --disable-bsfs
-    --disable-filters
-    --disable-parsers
     --disable-indevs
     --disable-outdevs
-    --disable-encoders
-    --disable-decoders
     --disable-hwaccels
     --disable-nvenc
     --disable-xvmc
@@ -43,11 +33,14 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-filter=null
     --enable-filter=setpts
     --enable-filter=trim
+    --enable-filter=aresample
+    --enable-filter=scale
 
     --disable-protocols
     --enable-protocol=file
     --enable-protocol=pipe
 
+    --disable-demuxers
     --enable-demuxer=image2
     --enable-demuxer=aac
     --enable-demuxer=ac3
@@ -94,6 +87,7 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-demuxer=xwma
     --enable-demuxer=dsf
 
+    --disable-decoders
     --enable-decoder=aac
     --enable-decoder=aac_latm
     --enable-decoder=ac3
@@ -132,7 +126,6 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-decoder=wmav1
     --enable-decoder=wmav2
     --enable-decoder=wmavoice
-
     --enable-decoder=pcm_alaw
     --enable-decoder=pcm_bluray
     --enable-decoder=pcm_dvd
@@ -167,7 +160,19 @@ FFMPEG_CONFIGURE_FLAGS=(
     --enable-decoder=dsd_msbf
     --enable-decoder=dsd_lsbf_planar
     --enable-decoder=dsd_msbf_planar
+    --enable-decoder=mjpeg
+    --enable-decoder=png
 
+    --disable-encoders
+    --enable-libmp3lame
+    --enable-encoder=libmp3lame
+    --enable-encoder=mjpeg
+    --enable-encoder=png
+
+    --disable-muxers
+    --enable-muxer=mp3
+
+    --disable-parsers
     --enable-parser=aac
     --enable-parser=aac_latm
     --enable-parser=ac3
