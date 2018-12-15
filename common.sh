@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
 
+LAME_VERSION=3.100
+LAME_TARBALL=lame.tar.gz
+LAME_TARBALL_URL=https://sourceforge.net/projects/lame/files/lame/$LAME_VERSION/lame-$LAME_VERSION.tar.gz/download
+
 FFMPEG_VERSION=3.4.5
 FFMPEG_TARBALL=ffmpeg-$FFMPEG_VERSION.tar.bz2
 FFMPEG_TARBALL_URL=http://ffmpeg.org/releases/$FFMPEG_TARBALL
+
+CHROMAPRINT_VERSION=1.4.3
+CHROMAPRINT_TARBALL=chromaprint-$CHROMAPRINT_VERSION.tar.gz
+CHROMAPRINT_TARBALL_URL=https://github.com/acoustid/chromaprint/releases/download/v$CHROMAPRINT_VERSION/$CHROMAPRINT_TARBALL
 
 FFMPEG_CONFIGURE_FLAGS=(
     --enable-shared

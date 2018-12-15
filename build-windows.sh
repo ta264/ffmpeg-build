@@ -7,12 +7,29 @@ BASE_DIR=$(pwd)
 
 source common.sh
 
+if [ ! -e $LAME_TARBALL ]
+then
+	curl -L $LAME_TARBALL_URL > $LAME_TARBALL
+fi
+
+LAME_DIR=$(mktemp -d -p $(pwd) build.XXXXXXXX)
+trap 'rm -rf $LAME_DIR' EXIT
+
+: ${ARCH?}
+
+cd $LAME_DIR
+tar --strip-components=1 -xf $BASE_DIR/lame.tar.gz
+./configure --host=$ARCH-w64-mingw32 --prefix=/usr/$ARCH-w64-mingw32/ --disable-shared --enable-static
+make
+make install 
+
+cd $BASE_DIR
+rm -r $LAME_DIR
+
 if [ ! -e $FFMPEG_TARBALL ]
 then
 	wget $FFMPEG_TARBALL_URL
 fi
-
-: ${ARCH?}
 
 TARGET=ffmpeg-$FFMPEG_VERSION-audio-windows-$ARCH
 
