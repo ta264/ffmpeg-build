@@ -52,3 +52,6 @@ make
 make install
 
 chown $(stat -c '%u:%g' $BASE_DIR) -R $BASE_DIR/$TARGET
+
+export OS=windows
+./build-chromaprint.sh

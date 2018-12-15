@@ -30,7 +30,6 @@ FFMPEG_CONFIGURE_FLAGS+=(
 	--enable-cross-compile
 	--target-os=darwin
 	--arch=$ARCH
-	--enable-memalign-hack
 	--extra-ldflags="-isysroot $OSX_SDK -mmacosx-version-min=$OSX_VERSION -arch $ARCH"
 	--extra-cflags="-isysroot $OSX_SDK -mmacosx-version-min=$OSX_VERSION -arch $ARCH"
 )
@@ -43,3 +42,6 @@ make
 make install
 
 chown -R $(stat -f '%u:%g' $BASE_DIR) $BASE_DIR/$TARGET
+
+export OS=macos
+./build-chromaprint.sh
