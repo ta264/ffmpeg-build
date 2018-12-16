@@ -17,6 +17,7 @@ addons:
       - lame
       - automake
       - libtool
+      - pkg-config
       - sdl
       - shtool
       - texi2html
