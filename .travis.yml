@@ -19,9 +19,23 @@ addons:
   homebrew:
     packages:
       - lame
+      - automake
+      - libtool
+      - sdl
+      - shtool
+      - texi2html
+      - theora
+      - wget
+      - nasm
       - cmake
       - fftw
       - libpng
+
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+    - os: osx
       
 before_install:
   - unset CXX CXX_FOR_BUILD CC CC_FOR_BUILD
