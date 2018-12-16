@@ -22,7 +22,7 @@ trap 'rm -rf $ZLIB_DIR' EXIT
 cd $ZLIB_DIR
 tar --strip-components=1 -xf $BASE_DIR/$ZLIB_TARBALL
 ./configure --prefix=$BASE_DIR/$ZLIB_TARGET --static
-make AR=/usr/bin/x86_64-w64-mingw32-ar CC=/usr/bin/x86_64-w64-mingw32-gcc LD=/usr/bin/x86_64-w64-mingw32-ld ARFLAGS=rcs
+make AR=/usr/bin/$ARCH-w64-mingw32-ar CC=/usr/bin/$ARCH-w64-mingw32-gcc LD=/usr/bin/$ARCH-w64-mingw32-ld ARFLAGS=rcs
 make install
 
 cd $BASE_DIR
