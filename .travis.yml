@@ -4,7 +4,7 @@ before_install:
   - sudo dpkg --add-architecture i386
   - sudo apt-get -y update
   - sudo apt-get install -y build-essential gcc-multilib g++ g++-multilib mingw-w64 yasm nasm wget curl pkg-config cmake unzip zip libavcodec-dev libavformat-dev libavutil-dev libavresample-dev libfftw3-dev libgtest-dev libboost-all-dev libmp3lame-dev libpng-dev
-  - sudo apt-get install -y build-essential:i386 gcc-multilib:i386 g++:i386 g++-multilib:i386 mingw-w64:i386 yasm:i386 nasm:i386 cmake:i386 libavcodec-dev:i386 libavformat-dev:i386 libavutil-dev:i386 libavresample-dev:i386 libfftw3-dev:i386 libgtest-dev:i386 libboost-all-dev:i386 libmp3lame-dev:i386 libpng-dev:i386
+  - sudo apt-get install -y build-essential:i386 gcc-multilib:i386 g++:i386 g++-multilib:i386 yasm:i386 nasm:i386 cmake:i386 libavcodec-dev:i386 libavformat-dev:i386 libavutil-dev:i386 libavresample-dev:i386 libfftw3-dev:i386 libgtest-dev:i386 libboost-all-dev:i386 libmp3lame-dev:i386 libpng-dev:i386
 script:
   - ARCH=i686 ./build-linux.sh
   - ARCH=x86_64 ./build-linux.sh
