@@ -1,9 +1,29 @@
 language: cpp
-dist: xenial
+
+os:
+  - linux
+  - osx
+  
+addons:
+  apt:
+    packages:
+      - gcc-multilib
+      - g++-multilib
+      - yasm
+      - nasm
+      - cmake
+      - libfftw3-dev
+      - libmp3lame-dev
+      - libpng-dev
+    update: true
+  homebrew:
+    packages:
+      - lame
+      - cmake
+      - fftw
+      - libpng
+      
 before_install:
   - unset CXX CXX_FOR_BUILD CC CC_FOR_BUILD
-  - sudo apt-get -y update
-  - sudo apt-get install -y build-essential gcc-multilib g++ g++-multilib mingw-w64 yasm nasm wget curl pkg-config cmake unzip zip libavcodec-dev libavformat-dev libavutil-dev libavresample-dev libfftw3-dev libgtest-dev libboost-all-dev libmp3lame-dev libpng-dev
-script:
-  - ARCH=x86_64 ./build-windows.sh
-  - ARCH=i686 ./build-windows.sh
+
+script: ./build-travis.sh
