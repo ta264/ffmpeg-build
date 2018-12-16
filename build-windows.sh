@@ -5,6 +5,8 @@ set -eu
 cd $(dirname $0)
 BASE_DIR=$(pwd)
 
+: ${ARCH?}
+
 source common.sh
 
 if [ ! -e $LAME_TARBALL ]
@@ -12,16 +14,19 @@ then
 	curl -L $LAME_TARBALL_URL > $LAME_TARBALL
 fi
 
+LAME_TARGET=lame-$LAME_VERSION-windows-$ARCH
+
 LAME_DIR=$(mktemp -d -p $(pwd) build.XXXXXXXX)
 trap 'rm -rf $LAME_DIR' EXIT
 
-: ${ARCH?}
-
 cd $LAME_DIR
-tar --strip-components=1 -xf $BASE_DIR/lame.tar.gz
-./configure --host=$ARCH-w64-mingw32 --prefix=/usr/$ARCH-w64-mingw32/ --disable-shared --enable-static
+tar --strip-components=1 -xf $BASE_DIR/$LAME_TARBALL
+./configure --host=$ARCH-w64-mingw32 --prefix=$BASE_DIR/$LAME_TARGET --disable-shared --enable-static
 make
-make install 
+make install
+
+export CPPFLAGS="-I$BASE_DIR/$LAME_TARGET/include"
+export LDFLAGS="-L$BASE_DIR/$LAME_TARGET/lib"
 
 cd $BASE_DIR
 rm -r $LAME_DIR
