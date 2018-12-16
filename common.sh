@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
 
+ZLIB_VERSION=1.2.11
+ZLIB_TARBALL=zlib-$ZLIB_VERSION.tar.gz
+ZLIB_TARBALL_URL=https://zlib.net/$ZLIB_TARBALL
+
+PNG_VERSION=1.6.35
+PNG_TARBALL=libpng-$PNG_VERSION.tar.xz
+PNG_TARBALL_URL=https://downloads.sourceforge.net/libpng/$PNG_TARBALL
+
 LAME_VERSION=3.100
-LAME_TARBALL=lame.tar.gz
-LAME_TARBALL_URL=https://sourceforge.net/projects/lame/files/lame/$LAME_VERSION/lame-$LAME_VERSION.tar.gz/download
+LAME_TARBALL=lame-$LAME_VERSION.tar.gz
+LAME_TARBALL_URL=https://downloads.sourceforge.net/sourceforge/lame/$LAME_TARBALL
 
 FFMPEG_VERSION=3.4.5
 FFMPEG_TARBALL=ffmpeg-$FFMPEG_VERSION.tar.bz2

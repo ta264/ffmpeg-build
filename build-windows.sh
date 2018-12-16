@@ -9,13 +9,57 @@ BASE_DIR=$(pwd)
 
 source common.sh
 
+## Build zlib
+if [ ! -e $ZLIB_TARBALL ]
+then
+	wget $ZLIB_TARBALL_URL
+fi
+
+ZLIB_TARGET=zlib-$ZLIB_VERSION-windows-$ARCH
+ZLIB_DIR=$(mktemp -d -p $(pwd) build.XXXXXXXX)
+trap 'rm -rf $ZLIB_DIR' EXIT
+
+cd $ZLIB_DIR
+tar --strip-components=1 -xf $BASE_DIR/$ZLIB_TARBALL
+./configure --prefix=$BASE_DIR/$ZLIB_TARGET --static
+make AR=/usr/bin/x86_64-w64-mingw32-ar CC=/usr/bin/x86_64-w64-mingw32-gcc LD=/usr/bin/x86_64-w64-mingw32-ld ARFLAGS=rcs
+make install
+
+cd $BASE_DIR
+rm -r $ZLIB_DIR
+
+export CPPFLAGS="-I$BASE_DIR/$ZLIB_TARGET/include"
+export LDFLAGS="-L$BASE_DIR/$ZLIB_TARGET/lib"
+
+## Build PNG
+if [ ! -e $PNG_TARBALL ]
+then
+	wget $PNG_TARBALL_URL
+fi
+
+PNG_TARGET=libpng-$PNG_VERSION-windows-$ARCH
+PNG_DIR=$(mktemp -d -p $(pwd) build.XXXXXXXX)
+trap 'rm -rf $PNG_DIR' EXIT
+
+cd $PNG_DIR
+tar --strip-components=1 -xf $BASE_DIR/$PNG_TARBALL
+./configure --host=$ARCH-w64-mingw32 --prefix=$BASE_DIR/$PNG_TARGET --disable-shared --enable-static
+make
+make install
+
+cd $BASE_DIR
+rm -r $PNG_DIR
+
+export CPPFLAGS="$CPPFLAGS -I$BASE_DIR/$PNG_TARGET/include"
+export LDFLAGS="$LDFLAGS -L$BASE_DIR/$PNG_TARGET/lib"
+
+## Build Lame
 if [ ! -e $LAME_TARBALL ]
 then
-	curl -L $LAME_TARBALL_URL > $LAME_TARBALL
+	wget $LAME_TARBALL_URL
 fi
 
 LAME_TARGET=lame-$LAME_VERSION-windows-$ARCH
-
 LAME_DIR=$(mktemp -d -p $(pwd) build.XXXXXXXX)
 trap 'rm -rf $LAME_DIR' EXIT
 
@@ -25,12 +69,13 @@ tar --strip-components=1 -xf $BASE_DIR/$LAME_TARBALL
 make
 make install
 
-export CPPFLAGS="-I$BASE_DIR/$LAME_TARGET/include"
-export LDFLAGS="-L$BASE_DIR/$LAME_TARGET/lib"
-
 cd $BASE_DIR
 rm -r $LAME_DIR
 
+export CPPFLAGS="$CPPFLAGS -I$BASE_DIR/$LAME_TARGET/include"
+export LDFLAGS="$LDFLAGS -L$BASE_DIR/$LAME_TARGET/lib"
+
+## Build FFmpeg
 if [ ! -e $FFMPEG_TARBALL ]
 then
 	wget $FFMPEG_TARBALL_URL
