@@ -28,6 +28,7 @@ addons:
       - cmake
       - fftw
       - libpng
+      - ffmpeg
 
 matrix:
   include:
