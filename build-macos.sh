@@ -43,5 +43,6 @@ make install
 
 chown -R $(stat -f '%u:%g' $BASE_DIR) $BASE_DIR/$TARGET
 
+cd $BASE_DIR
 export OS=macos
 ./build-chromaprint.sh
