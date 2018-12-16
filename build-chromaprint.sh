@@ -21,7 +21,7 @@ trap 'rm -rf $TMP_BUILD_DIR' EXIT
 cd $TMP_BUILD_DIR
 tar --strip-components=1 -xf $BASE_DIR/$CHROMAPRINT_TARBALL
 
-export FFMPEG_DIR=/root/ffmpeg-build-master/ffmpeg-$FFMPEG_VERSION-audio-$OS-$ARCH
+export FFMPEG_DIR=$BASE_DIR/ffmpeg-$FFMPEG_VERSION-audio-$OS-$ARCH
 
 CMAKE_ARGS=(
     -DCMAKE_INSTALL_PREFIX=$BASE_DIR/chromaprint-$OS-$ARCH
