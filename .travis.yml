@@ -1,7 +1,7 @@
 language: cpp
-os:
-   - linux
+dist: xenial
 before_install:
+  - sudo apt-get -y update
   - sudo apt-get install -y build-essential gcc-multilib g++ g++-multilib mingw-w64 yasm nasm wget curl pkg-config cmake unzip zip libavcodec-dev libavformat-dev libavutil-dev libavresample-dev libfftw3-dev libgtest-dev libboost-all-dev libmp3lame-dev libpng-dev
 script:
   - ARCH=i686 ./build-linux.sh
